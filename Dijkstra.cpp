@@ -277,12 +277,14 @@ void Graph_DG::print_path(int begin,string outfilename,map<int,string> map_intid
 }
 
 
-void Graph_DG::print_path(string outfilename_graph,string** matrix_path) {
+void Graph_DG::print_path(string outfilename_graph,string** matrix_path,map<int,string> map_intid) {
 
-   ofstream outfile(outfilename_graph.c_str(),ios::out);
+   ofstream outfile(outfilename_graph.c_str(),ios::app);
 	
 	
    for (int i = 0; i != this->vexnum; i++) {
+   	
+   		outfile << map_intid[i] << "\t"; 
     	
     	for (int j = 0; j != this->vexnum; j++) {
     		
@@ -294,4 +296,6 @@ void Graph_DG::print_path(string outfilename_graph,string** matrix_path) {
         
 
     }
+    
+    outfile.close();
 }

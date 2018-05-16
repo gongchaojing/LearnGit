@@ -61,5 +61,5 @@ public:
     //´òÓ¡×î¶ÌÂ·¾¶
     void print_path(int);
     void print_path(int begin,string outfilename,map<int,string> map_intid);
-    void print_path(string outfilename_graph,string** matrix_path);
+    void print_path(string outfilename_graph, string** matrix_path, map<int,string> map_intid);
 };

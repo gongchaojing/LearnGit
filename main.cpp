@@ -68,33 +68,41 @@ int main() {
 	map_meta = gene_meta(meta_infile); 
 	vector<int> vec_vex_edge;
 	vec_vex_edge=find_vex_edge(buf_infile);
-    Graph_DG graph(vec_vex_edge[0],vec_vex_edge[1]);
-   	string **matrix_path = new string *[vec_vex_edge[0]];
+	string **matrix_path = new string *[vec_vex_edge[0]];
    	for(int i=0;i<vec_vex_edge[0];i++){
    		matrix_path[i]=new string[vec_vex_edge[0]];	
 	}
+    Graph_DG graph(vec_vex_edge[0],vec_vex_edge[1]);
+   	cout<<"Now the graph init completed!"<<endl;
     
     
     map<int,string> map_intid;
     map_intid=graph.createGraph(buf_infile);
-
+	cout<<"Now the graph create completed!"<<endl;
+	
+	
     //graph.print();
     string outfilename="matrix_2010.out";
     string outfilename_graph="Dijstra.out";
     graph.print(outfilename,map_intid,map_meta);
+    cout<<"Now the graph print completed!"<<endl;
+    
+    
+    #pragma omp parallel for num_threads(50)
+    for(int i=1;i<=vec_vex_edge[0];i++){
+    	cout<<i<<endl;
+    	graph.Dijkstra(i,map_intid,map_meta,matrix_path);
+    	//graph.print_path(i,outfilename_graph,map_intid);
+	}
+	cout<<"Now the Dijkstra for everynode complete!"<<endl;
+    
     ofstream outfile_graph(outfilename_graph.c_str(),ios::out);
     outfile_graph<<"\t"<<"\t";
 	for(int i=0;i<vec_vex_edge[0];i++){
 		outfile_graph<<map_intid[i]<<"\t";
 	}
 	outfile_graph<<endl;
-	#pragma omp parallel num_threads(2)
-    for(int i=1;i<=vec_vex_edge[0];i++){
-    	cout<<i<<endl;
-    	graph.Dijkstra(i,map_intid,map_meta,matrix_path);
-    	//graph.print_path(i,outfilename_graph,map_intid);
-	}
-	graph.print_path(outfilename_graph,matrix_path);
+	graph.print_path(outfilename_graph,matrix_path,map_intid);
     outfile_graph.close(); 
     system("pause");
     return 0;
