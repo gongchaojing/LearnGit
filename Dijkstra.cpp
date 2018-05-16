@@ -185,11 +185,11 @@ void Graph_DG::Dijkstra(int begin){
     
 
 }
-void Graph_DG::Dijkstra(int begin,map<int,string> map_intid,map<string,string> map_meta){
+void Graph_DG::Dijkstra(int begin,map<int,string> map_intid,map<string,string> map_meta,string** matrix_path){
     //首先初始化我们的dis数组
     for (int i = 0; i < this->vexnum; i++) {
         //设置当前的路径
-        dis[i].path = map_meta[map_intid[begin-1]] + "-->" + map_meta[map_intid[i]];
+        dis[i].path = map_intid[begin-1] + "-->" + map_intid[i];
         dis[i].value = arc[begin - 1][i];
         dis[i].visit = false;
     }
@@ -222,12 +222,20 @@ void Graph_DG::Dijkstra(int begin,map<int,string> map_intid,map<string,string> m
             if (!dis[i].visit && arc[temp][i]!=INT_MAX && (dis[temp].value + arc[temp][i]) < dis[i].value) {
                 //如果新得到的边可以影响其他为访问的顶点，那就就更新它的最短路径和长度
                 dis[i].value = dis[temp].value + arc[temp][i];
-                dis[i].path = dis[temp].path + "-->" + map_meta[map_intid[i]];
+                dis[i].path = dis[temp].path + "-->" + map_intid[i];
                 
             }
             
         }
+
     }
+	for (int i = 0; i < this->vexnum; i++) {
+		if(dis[i].value!=INT_MAX)
+        matrix_path[begin-1][i] = dis[i].path + "=" + to_string(dis[i].value);
+        else {
+             matrix_path[begin-1][i] = "oo";
+        }
+	}
     
      
     
@@ -250,6 +258,7 @@ void Graph_DG::print_path(int begin) {
 }
 
 
+
 void Graph_DG::print_path(int begin,string outfilename,map<int,string> map_intid) {
     ofstream outfile(outfilename.c_str(),ios::app);
 	string str;
@@ -265,4 +274,24 @@ void Graph_DG::print_path(int begin,string outfilename,map<int,string> map_intid
         }
     }
     outfile<<endl;
+}
+
+
+void Graph_DG::print_path(string outfilename_graph,string** matrix_path) {
+
+   ofstream outfile(outfilename_graph.c_str(),ios::out);
+	
+	
+   for (int i = 0; i != this->vexnum; i++) {
+    	
+    	for (int j = 0; j != this->vexnum; j++) {
+    		
+    		outfile<<matrix_path[i][j]<<"\t"; 
+    		
+		} 
+		
+		outfile << endl;
+        
+
+    }
 }

@@ -57,8 +57,9 @@ public:
     void print(string outfilename,map<int,string> map_intid,map<string,string> map_meta);
     //求最短路径
     void Dijkstra(int begin);
-    void Dijkstra(int begin,map<int,string> map_intid,map<string,string> map_meta);
+    void Dijkstra(int begin,map<int,string> map_intid,map<string,string> map_meta,string** matrix_path);
     //打印最短路径
     void print_path(int);
     void print_path(int begin,string outfilename,map<int,string> map_intid);
+    void print_path(string outfilename_graph,string** matrix_path);
 };

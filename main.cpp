@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
+#include <omp.h>
 
 //检验输入边数和顶点数的值是否有效，可以自己推算为啥：
 //顶点数和边数的关系是：((Vexnum*(Vexnum - 1)) / 2) < edge
@@ -68,6 +69,12 @@ int main() {
 	vector<int> vec_vex_edge;
 	vec_vex_edge=find_vex_edge(buf_infile);
     Graph_DG graph(vec_vex_edge[0],vec_vex_edge[1]);
+   	string **matrix_path = new string *[vec_vex_edge[0]];
+   	for(int i=0;i<vec_vex_edge[0];i++){
+   		matrix_path[i]=new string[vec_vex_edge[0]];	
+	}
+    
+    
     map<int,string> map_intid;
     map_intid=graph.createGraph(buf_infile);
 
@@ -81,10 +88,13 @@ int main() {
 		outfile_graph<<map_intid[i]<<"\t";
 	}
 	outfile_graph<<endl;
+	#pragma omp parallel num_threads(2)
     for(int i=1;i<=vec_vex_edge[0];i++){
-    	graph.Dijkstra(i,map_intid,map_meta);
-    	graph.print_path(i,outfilename_graph,map_intid);
+    	cout<<i<<endl;
+    	graph.Dijkstra(i,map_intid,map_meta,matrix_path);
+    	//graph.print_path(i,outfilename_graph,map_intid);
 	}
+	graph.print_path(outfilename_graph,matrix_path);
     outfile_graph.close(); 
     system("pause");
     return 0;
