@@ -62,7 +62,7 @@ map<string,string> gene_meta(string infile_name){
 
 int main() {
     //int vexnum; int edge;
-	string buf_infile="2011.out";
+	string buf_infile="all.query.out";
 	string meta_infile="all_dup.meta";
 	map<string,string> map_meta;
 	map_meta = gene_meta(meta_infile); 
@@ -82,8 +82,8 @@ int main() {
 	
 	
     //graph.print();
-    string outfilename="matrix_2010.out";
-    string outfilename_graph="Dijstra.out";
+    string outfilename="matrix.all.out";
+    string outfilename_graph="Dijstra.all.out";
     graph.print(outfilename,map_intid,map_meta);
     cout<<"Now the graph print completed!"<<endl;
     
@@ -97,7 +97,7 @@ int main() {
 	cout<<"Now the Dijkstra for everynode complete!"<<endl;
     
     ofstream outfile_graph(outfilename_graph.c_str(),ios::out);
-    outfile_graph<<"\t"<<"\t";
+    outfile_graph<<" "<<"\t";
 	for(int i=0;i<vec_vex_edge[0];i++){
 		outfile_graph<<map_intid[i]<<"\t";
 	}
