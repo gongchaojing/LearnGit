@@ -117,7 +117,7 @@ void Graph_DG::print() {
 void Graph_DG::print(string outfilename,map<int,string> map_intid,map<string,string> map_meta) {
     
     ofstream outfile(outfilename.c_str(),ios::out);
-    outfile<<"\t"<<"\t";
+    outfile<<" "<<"\t";
 	for(int i=0;i<this->vexnum;i++){
 		outfile<<map_meta[map_intid[i]]<<"\t";
 	}
