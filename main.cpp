@@ -62,17 +62,22 @@ map<string,string> gene_meta(string infile_name){
 
 int main() {
     //int vexnum; int edge;
-	string buf_infile="all.query.out";
+	string buf_infile="2011.out";
 	string meta_infile="all_dup.meta";
 	map<string,string> map_meta;
 	map_meta = gene_meta(meta_infile); 
 	vector<int> vec_vex_edge;
 	vec_vex_edge=find_vex_edge(buf_infile);
-	string **matrix_path = new string *[vec_vex_edge[0]];
-   	for(int i=0;i<vec_vex_edge[0];i++){
-   		matrix_path[i]=new string[vec_vex_edge[0]];	
-	}
-    Graph_DG graph(vec_vex_edge[0],vec_vex_edge[1]);
+	vector<vector<string> > matrix_path;
+	for(int i=0;i<vec_vex_edge[0];i++)
+	{
+		vector<string> vec_temp;
+		for(int j=0;j<vec_vex_edge[0];j++)
+			vec_temp.push_back("");
+		matrix_path.push_back(vec_temp);
+	}  
+    
+	Graph_DG graph(vec_vex_edge[0],vec_vex_edge[1]);
    	cout<<"Now the graph init completed!"<<endl;
     
     

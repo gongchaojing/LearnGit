@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include <fstream>
+#include <vector>
 #include <sstream>
 
 //构造函数
@@ -185,7 +186,7 @@ void Graph_DG::Dijkstra(int begin){
     
 
 }
-void Graph_DG::Dijkstra(int begin,map<int,string> map_intid,map<string,string> map_meta,string** matrix_path){
+void Graph_DG::Dijkstra(int begin,map<int,string> map_intid,map<string,string> map_meta, vector< vector<string> > &matrix_path){
     //首先初始化我们的dis数组
     for (int i = 0; i < this->vexnum; i++) {
         //设置当前的路径
@@ -277,7 +278,7 @@ void Graph_DG::print_path(int begin,string outfilename,map<int,string> map_intid
 }
 
 
-void Graph_DG::print_path(string outfilename_graph,string** matrix_path,map<int,string> map_intid) {
+void Graph_DG::print_path(string outfilename_graph,vector<vector<string> > &matrix_path,map<int,string> map_intid) {
 
    ofstream outfile(outfilename_graph.c_str(),ios::app);
 	
