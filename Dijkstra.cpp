@@ -186,8 +186,9 @@ void Graph_DG::Dijkstra(int begin){
     
 
 }
+
 void Graph_DG::Dijkstra(int begin,map<int,string> map_intid,map<string,string> map_meta, vector< vector<string> > &matrix_path){
-    //首先初始化我们的dis数组
+    Dis *dis = new Dis[this->vexnum];//首先初始化我们的dis数组
     for (int i = 0; i < this->vexnum; i++) {
         //设置当前的路径
         dis[i].path = map_intid[begin-1] + "-->" + map_intid[i];
@@ -238,7 +239,7 @@ void Graph_DG::Dijkstra(int begin,map<int,string> map_intid,map<string,string> m
         }
 	}
     
-     
+ 
     
 
 }

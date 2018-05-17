@@ -93,7 +93,7 @@ int main() {
     cout<<"Now the graph print completed!"<<endl;
     
     
-    #pragma omp parallel for num_threads(50)
+    #pragma omp parallel for num_threads(5)
     for(int i=1;i<=vec_vex_edge[0];i++){
     	cout<<i<<endl;
     	graph.Dijkstra(i,map_intid,map_meta,matrix_path);
